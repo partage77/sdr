@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <title>Nagra Bluetooth Watch</title>
+        <style>      
+        li { 
+            height: 30px;
+            background-color:khaki; 
+        }
+        li:nth-child(even){
+            background-color: aqua;
+        }
+        ul { 
+           list-style: none;
+           margin : 0;
+           padding : 0;
+           white-space: nowrap;
+           overflow-x:auto;
+           overflow-y:hidden;
+        }       
+        li > div {
+            width : 25%;
+            display:inline-block;
+            margin-top: 6px;
+        }
+        .ssid {
+            width:10%;
+        }
+        .RSSI {
+            width : 6%;
+        }
+        .time {
+            width: 15%;
+        }
+        .date {
+            width: 15%;
+        }
+        .OUI {
+            width:40%;
+        }
+        </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.0/list.min.js"></script>
+    </head>
+    <body>
+        <div id="myList">
+            <button onclick="refresh()" >Refresh</button>
+            <input  class="search" placeholder="Search" />
+
+            <button class="sort" data-sort="ssid">SSID</button>
+            <button class="sort" data-sort="RSSI">RSSI</button>
+            <button class="sort" data-sort="time">Time</button>
+            <button class="sort" data-sort="OUI">OUI</button>
+
+            <ul class="list">
+                <li id="myItem">
+                    <div class="ssid">SSID</div>
+                    <div class="RSSI">RSSI</div>
+                    <div class="date">date</div>
+                    <div class="time">Time</div>
+                    <div class="OUI">organisation</div>
+                </li>
+            </ul>
+        </div>
+
+        <script>
+            var options = {
+                valueNames: [ 'ssid', 'RSSI', 'date',"OUI", "time" ],
+                item : "myItem"
+            }
+            function
+            refresh(){
+                fetch("./bluetooth").then(function(response){
+                    return response.json().then(function(json){
+                        update_screen(json)
+                    })
+                })
+            }
+            var list
+            function
+            update_screen( data ){
+                list = new List('myList', options, data)
+            }
+        </script>
+    </body>
+</html>
